@@ -28,13 +28,13 @@ different flags and/or different memory and cpu requests for different hardware 
 
 ### Create a DaemonSet
 
-You can describe a DaemonSet in a YAML file. For example, the deamonset.yaml file below describes a DaemonSet that runs the fluentd-elasticsearch Docker image:
+You can describe a DaemonSet in a YAML file. For example, the daemonset.yaml file below describes a DaemonSet that runs the fluentd-elasticsearch Docker image:
 
-{% include code.html language="yaml" file="deamonset.yaml" ghlink="/docs/concepts/workloads/controllers/deamonset.yaml" %}
+{% include code.html language="yaml" file="daemonset.yaml" ghlink="/docs/concepts/workloads/controllers/daemonset.yaml" %}
 
 * Create a DaemonSet based on the YAML file:
 ```
-kubectl create -f deamonset.yaml
+kubectl create -f daemonset.yaml
 ```
 
 ### Required Fields
@@ -64,7 +64,7 @@ a [Job](/docs/concepts/jobs/run-to-completion-finite-workloads/) or other new re
 
 The `spec.selector` is an object consisting of two fields:
 
-* `matchLabels` - works the same as the `.spec.selector` of a [ReplicationController](/docs/concepts/workloads/controllers/replicationcontroller/)
+* `matchLabels` - works the same as the `.spec.selector` of a [ReplicationController](/docs/concepts/workloads/controllers/replicationcontroller/).
 * `matchExpressions` - allows to build more sophisticated selectors by specifying key,
   list of values and an operator that relates the key and values.
 
@@ -83,7 +83,7 @@ a node for testing.
 
 If you specify a `.spec.template.spec.nodeSelector`, then the DaemonSet controller will
 create pods on nodes which match that [node
-selector](/docs/concepts/configuration/assign-pod-node/). Likewise if you specify a `.spec.template.spec.affinity`
+selector](/docs/concepts/configuration/assign-pod-node/). Likewise if you specify a `.spec.template.spec.affinity`,
 then DaemonSet controller will create pods on nodes which match that [node affinity](/docs/concepts/configuration/assign-pod-node/).
 If you do not specify either, then the DaemonSet controller will create pods on all nodes.
 
@@ -93,14 +93,25 @@ Normally, the machine that a pod runs on is selected by the Kubernetes scheduler
 created by the Daemon controller have the machine already selected (`.spec.nodeName` is specified
 when the pod is created, so it is ignored by the scheduler).  Therefore:
 
- - the [`unschedulable`](/docs/admin/node/#manual-node-administration) field of a node is not respected
+ - The [`unschedulable`](/docs/admin/node/#manual-node-administration) field of a node is not respected
    by the DaemonSet controller.
  - DaemonSet controller can make pods even when the scheduler has not been started, which can help cluster
    bootstrap.
 
-Daemon pods do respect [taints and tolerations](/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature), but they are
-created with `NoExecute` tolerations for the `node.alpha.kubernetes.io/notReady` and `node.alpha.kubernetes.io/unreachable`
-taints with no `tolerationSeconds`. This ensures that when the `TaintBasedEvictions` alpha feature is enabled,
+Daemon pods do respect [taints and tolerations](/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature),
+but they are created with `NoExecute` tolerations for the following taints with no `tolerationSeconds`:
+
+ - `node.alpha.kubernetes.io/notReady`
+ - `node.alpha.kubernetes.io/unreachable`
+ - `node.alpha.kubernetes.io/memoryPressure`
+ - `node.alpha.kubernetes.io/diskPressure`
+
+When the support to critical pods is enabled and the pods in a DaemonSet are
+labelled as critical, the Daemon pods are created with an additional
+`NoExecute` toleration for the `node.alpha.kubernetes.io/outOfDisk` taint with
+no `tolerationSeconds`.
+
+This ensures that when the `TaintBasedEvictions` alpha feature is enabled,
 they will not be evicted when there are node problems such as a network partition. (When the
 `TaintBasedEvictions` feature is not enabled, they are also not evicted in these scenarios, but
 due to hard-coded behavior of the NodeController rather than due to tolerations).
@@ -112,7 +123,7 @@ Some possible patterns for communicating with pods in a DaemonSet are:
 
 - **Push**: Pods in the DaemonSet are configured to send updates to another service, such
   as a stats database.  They do not have clients.
-- **NodeIP and Known Port**: Pods in the DaemonSet can use a `hostPort`, so that the pods are reachable via the node IPs.  Clients know the list of nodes ips somehow, and know the port by convention.
+- **NodeIP and Known Port**: Pods in the DaemonSet can use a `hostPort`, so that the pods are reachable via the node IPs.  Clients know the list of node IPs somehow, and know the port by convention.
 - **DNS**: Create a [headless service](/docs/user-guide/services/#headless-services) with the same pod selector,
   and then discover DaemonSets using the `endpoints` resource or retrieve multiple A records from
   DNS.

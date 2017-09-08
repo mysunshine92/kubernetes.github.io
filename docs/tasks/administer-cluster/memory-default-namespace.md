@@ -103,7 +103,7 @@ kubectl create -f https://k8s.io/docs/tasks/administer-cluster/memory-defaults-p
 View detailed information about the Pod:
 
 ```shell
-kubectl get pod mem-limit-no-request --output=yaml --namespace=default-mem-example
+kubectl get pod default-mem-demo-2 --output=yaml --namespace=default-mem-example
 ```
 
 The output shows that the Container's memory request is set to match its memory limit.
@@ -133,7 +133,7 @@ kubectl create -f https://k8s.io/docs/tasks/administer-cluster/memory-defaults-p
 View the Pod's specification:
 
 ```shell
-kubectl get pod default-mem-request-no-limit --output=yaml --namespace=default-mem-example
+kubectl get pod default-mem-demo-3 --output=yaml --namespace=default-mem-example
 ```
 
 The output shows that the Container's memory request is set to the value specified in the
@@ -166,7 +166,7 @@ it can be allowed to run in a namespace that is restricted by a quota.
 
 ### For cluster administrators
 
-* [Configure Default CPU Requests and Limits for a Namespace](docs/tasks/administer-cluster/default-cpu-request-limit/)
+* [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/cpu-default-namespace/)
 
 * [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/memory-constraint-namespace/)
 
@@ -182,7 +182,7 @@ it can be allowed to run in a namespace that is restricted by a quota.
 
 * [Assign Memory Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/)
 
-* [Assign CPU Resources to Containers and Pods](docs/tasks/configure-pod-container/assign-cpu-resource/)
+* [Assign CPU Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
 * [Configure Quality of Service for Pods](/docs/tasks/configure-pod-container/quality-service-pod/)
 

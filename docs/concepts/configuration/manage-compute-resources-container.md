@@ -79,7 +79,7 @@ Mi, Ki. For example, the following represent roughly the same value:
 
 Here's an example.
 The following Pod has two Containers. Each Container has a request of 0.25 cpu
-and 64MiB (2<sup>26</sup> bytes) of memory Each Container has a limit of 0.5
+and 64MiB (2<sup>26</sup> bytes) of memory. Each Container has a limit of 0.5
 cpu and 128MiB of memory. You can say the Pod has a request of 0.5 cpu and 128
 MiB of memory, and a limit of 1 cpu and 256MiB of memory.
 
@@ -135,14 +135,12 @@ When using Docker:
   [`--cpu-shares`](https://docs.docker.com/engine/reference/run/#/cpu-share-constraint)
   flag in the `docker run` command.
 
-- The `spec.containers[].resources.limits.cpu` is converted to its millicore value,
-  multiplied by 100000, and then divided by 1000. This number is used as the value
-  of the [`--cpu-quota`](https://docs.docker.com/engine/reference/run/#/cpu-quota-constraint)
-  flag in the `docker run` command.  The [`--cpu-period`] flag is set to 100000,
-   which represents the default 100ms period for measuring quota usage. The
-   kubelet enforces cpu limits if it is started with the
-  [`--cpu-cfs-quota`] flag set to true. As of Kubernetes version 1.2, this flag
-  defaults to true.
+- The `spec.containers[].resources.limits.cpu` is converted to its millicore value and
+  multiplied by 100. The resulting value is the total amount of CPU time that a container can use
+  every 100ms. A container cannot use more than its share of CPU time during this interval.
+
+  **Note**: The default quota period is 100ms. The minimum resolution of CPU quota is 1ms.
+  {: .note}
 
 - The `spec.containers[].resources.limits.memory` is converted to an integer, and
   used as the value of the
@@ -434,4 +432,3 @@ consistency across providers and platforms.
 {% endcapture %}
 
 {% include templates/concept.md %}
-

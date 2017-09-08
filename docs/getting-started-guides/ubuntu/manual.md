@@ -130,7 +130,7 @@ for the recommended settings for various releases.
 If your machines are located in a private network that need proxy setting to connect the Internet,
 you can set the config `PROXY_SETTING` in cluster/ubuntu/config-default.sh such as:
 
-     PROXY_SETTING="http_proxy=http://server:port https_proxy=https://server:port"
+    PROXY_SETTING="http_proxy=http://server:port https_proxy=https://server:port"
 
 After all the above variables being set correctly, we can use following command in `cluster/` directory to
 bring up the whole cluster.
@@ -170,7 +170,7 @@ NAME            STATUS   AGE   VERSION
 10.10.103.250   Ready    3d    v1.6.0+fff5156
 ```
 
-Also you can run Kubernetes [guest-example](https://github.com/kubernetes/kubernetes/tree/{{page.githubbranch}}/examples/guestbook/) to build a redis backend cluster．
+Also you can run Kubernetes [guest-example](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/guestbook/) to build a redis backend cluster．
 
 
 ### Deploy addons

@@ -123,7 +123,7 @@ kubectl create -f https://k8s.io/docs/tasks/administer-cluster/cpu-defaults-pod-
 ```
 
 The output shows that the Container's CPU request is set to the value specified in the
-Container's configuration file. The Container's CPU limit is set to 1 cpu, wh70cb02113b7c7cc1604d1951ef82e1c82850eef2ich is the
+Container's configuration file. The Container's CPU limit is set to 1 cpu, which is the
 default CPU limit for the namespace.
 
 ```
@@ -153,7 +153,7 @@ it can be allowed to run in a namespace that is restricted by a quota.
 
 ### For cluster administrators
 
-* [Configure Default Memory Requests and Limits for a Namespace](docs/tasks/administer-cluster/default-memory-request-limit/)
+* [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/memory-default-namespace/)
 
 * [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/memory-constraint-namespace/)
 
@@ -169,7 +169,7 @@ it can be allowed to run in a namespace that is restricted by a quota.
 
 * [Assign Memory Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/)
 
-* [Assign CPU Resources to Containers and Pods](docs/tasks/configure-pod-container/assign-cpu-resource/)
+* [Assign CPU Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
 * [Configure Quality of Service for Pods](/docs/tasks/configure-pod-container/quality-service-pod/)
 

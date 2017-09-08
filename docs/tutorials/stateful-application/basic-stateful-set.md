@@ -23,7 +23,7 @@ following Kubernetes concepts.
 * [Cluster DNS](/docs/concepts/services-networking/dns-pod-service/)
 * [Headless Services](/docs/concepts/services-networking/service/#headless-services)
 * [PersistentVolumes](/docs/concepts/storage/volumes/)
-* [PersistentVolume Provisioning](http://releases.k8s.io/{{page.githubbranch}}/examples/persistent-volume-provisioning/)
+* [PersistentVolume Provisioning](https://github.com/kubernetes/examples/tree/{{page.githubbranch}}/staging/persistent-volume-provisioning/)
 * [StatefulSets](/docs/concepts/abstractions/controllers/statefulsets/)
 * [kubectl CLI](/docs/user-guide/kubectl)
 
@@ -499,7 +499,7 @@ web-1   gcr.io/google_containers/nginx-slim:0.8
 web-2   gcr.io/google_containers/nginx-slim:0.8
 {% endraw %}```
 
-`web-0` has had its image updated, but `web-0` and `web-1` still have the original 
+`web-0` has had its image updated, but `web-1` and `web-2` still have the original 
 image. Complete the update by deleting the remaining Pods.
 
 ```shell
@@ -667,7 +667,7 @@ web-2     1/1       Running   0         18s
 Get the Pod's container.
 
 ```shell{% raw %}
-get po web-2 --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'
+kubectl get po web-2 --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'
 gcr.io/google_containers/nginx-slim:0.8
 {% endraw %}
 ```
@@ -738,7 +738,7 @@ web-1     1/1       Running   0         18s
 Get the `web-1` Pods container.
 
 ```shell{% raw %}
-get po web-1 --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'
+kubectl get po web-1 --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'
 gcr.io/google_containers/nginx-slim:0.8
 {% endraw %}
 ```

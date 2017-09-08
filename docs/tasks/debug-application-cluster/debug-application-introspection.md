@@ -62,6 +62,7 @@ Namespace:	default
 Node:		kubernetes-node-wul5/10.240.0.9
 Start Time:	Thu, 24 Mar 2016 01:39:49 +0000
 Labels:		app=nginx,pod-template-hash=1006230814
+Annotations:    kubernetes.io/created-by={"kind":"SerializedReference","apiVersion":"v1","reference":{"kind"                           :"ReplicaSet","namespace":"default","name":"nginx-deployment-1956810328","uid":"14e607e7-8ba1-11e7-b5cb-fa16                             ...
 Status:		Running
 IP:		10.244.0.6
 Controllers:	ReplicaSet/nginx-deployment-1006230814
@@ -84,14 +85,22 @@ Containers:
       Started:		Thu, 24 Mar 2016 01:39:51 +0000
     Ready:		True
     Restart Count:	0
-    Environment Variables:
+    Environment:        <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from default-token-5kdvl (ro)
 Conditions:
-  Type		Status
-  Ready 	True
+  Type          Status
+  Initialized   True
+  Ready         True
+  PodScheduled  True
 Volumes:
   default-token-4bcbi:
     Type:	Secret (a volume populated by a Secret)
     SecretName:	default-token-4bcbi
+    Optional:   false
+QoS Class:      Guaranteed
+Node-Selectors: <none>
+Tolerations:    <none>
 Events:
   FirstSeen	LastSeen	Count	From					SubobjectPath		Type		Reason		Message
   ---------	--------	-----	----					-------------		--------	------		-------
@@ -102,7 +111,7 @@ Events:
   53s		53s		1	{kubelet kubernetes-node-wul5}	spec.containers{nginx}	Normal		Started		Started container with docker id 90315cc9f513
 ```
 
-Here you can see configuration information about the container(s) and Pod (labels, resource requirements, etc.), as well as status information about the container(s) and Pod (state, readiness, restart count, events, etc.)
+Here you can see configuration information about the container(s) and Pod (labels, resource requirements, etc.), as well as status information about the container(s) and Pod (state, readiness, restart count, events, etc.).
 
 The container state is one of Waiting, Running, or Terminated. Depending on the state, additional information will be provided -- here you can see that for a container in Running state, the system tells you when the container started.
 
