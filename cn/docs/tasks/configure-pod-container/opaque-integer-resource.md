@@ -46,7 +46,7 @@ kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/oir-pod.yaml
 kubectl get pod oir-demo
 ```
 
-查询Pod的状态:
+查看Pod的状态:
 
 ```shell
 kubectl describe pod oir-demo
@@ -63,7 +63,7 @@ Requests:
 
 下面是含有一个容器的Pod的配置文件。该容器请求了两个dongles资源。
 
-{% include code.html language="yaml" file="oir-pod-2.yaml" ghlink="/docs/tasks/configure-pod-container/oir-pod-2.yaml" %}
+{% include code.html language="yaml" file="oir-pod-2.yaml" ghlink="/cn/docs/tasks/configure-pod-container/oir-pod-2.yaml" %}
 
 Kubernetes无法再满足两个dongles的请求，因为第一个Pod已经使用了四个可用dongles中的三个。
 
@@ -73,7 +73,7 @@ Kubernetes无法再满足两个dongles的请求，因为第一个Pod已经使用
 kubectl create -f https://k8s.io/docs/tasks/configure-pod-container/oir-pod-2.yaml
 ```
 
-查询Pod的状态
+查看Pod的状态
 
 ```shell
 kubectl describe pod oir-demo-2
